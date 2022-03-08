@@ -1,0 +1,74 @@
+Install
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Data retrieve
+
+data_filename= 'diabetes.csv'
+
+type(data_filename)
+
+df= pd.read_csv(data_filename,sep=",")
+
+df
+
+df.head()
+
+df.tail()
+
+# Data preparation
+
+Forcus on the content of variables: typo, data entry values, missing values, bad lines
+
+df.dtypes
+
+df.columns
+
+df.shape
+
+df.value_counts()
+
+df["SkinThickness"].value_counts()  #277 value 0,  unmeaningful values
+
+df.Insulin.value_counts() # 374 values 0, unmeaningful values
+
+df.Outcome.value_counts()
+
+df.isnull().sum()  #no missing value but lots of un meaningful values 0
+
+Replace un-meaningful 0 by NaN 
+
+df.columns # show all attributes
+
+df[['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin',
+       'BMI', 'DiabetesPedigreeFunction', 'Age']] = df [['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin',
+       'BMI', 'DiabetesPedigreeFunction', 'Age']].replace (0, np.NaN)
+
+df.isnull().sum() 
+
+pip install missingno  
+
+import missingno as msno # to visualise the NaN values of each variable
+
+msno.bar(df)
+
+# Data exploration  
+
+At this step, data is already clean, so we look at the statistical properties: Distribution/Correlation/Outliers...
+
+df[['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin',
+       'BMI', 'DiabetesPedigreeFunction', 'Age']].describe()  # stats values
+
+# df.describe([0.1,0.2,0.5,0.75,0.9]) 
+
+Replace NaN (missing values ) by the median of each variable
+
+# how to do it? not sure this method?
+df.fillna(df.median(axis=0))
+
+
+
+
+
